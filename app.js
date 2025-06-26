@@ -2,9 +2,20 @@ let userScore = 0;
 let compScore = 0;
 
 const choices = document.querySelectorAll(".choice");
-const msg = document.querySelector("#msg"); // Add this line to get the message element
-const userScorePara = document.querySelector("#user-score"); // Add this line
-const compScorePara = document.querySelector("#computer-score"); // Add this line
+const msg = document.querySelector("#msg");
+const userScorePara = document.querySelector("#user-score");
+const compScorePara = document.querySelector("#computer-score");
+const resetBtn = document.querySelector("#reset-btn");
+
+const resetGame = () => {
+    userScore = 0;
+    compScore = 0;
+    userScorePara.innerText = userScore;
+    compScorePara.innerText = compScore;
+    msg.innerText = "Play your move!";
+    msg.style.backgroundColor = "#444";
+    removeSelectedClass();
+};
 
 const drawGame = () => {
   msg.innerText = "Game was Draw. Play again.";
@@ -16,38 +27,46 @@ const showWinner = (userWin, userChoice, compChoice) => {
     userScore++;
     userScorePara.innerText = userScore;
     msg.innerText = `You win! Your ${userChoice} beats ${compChoice}`;
-    msg.style.backgroundColor = "green";
+    msg.style.backgroundColor = "#28a745";
   } else {
     compScore++;
     compScorePara.innerText = compScore;
     msg.innerText = `You lost. ${compChoice} beats your ${userChoice}`;
-    msg.style.backgroundColor = "red";
+    msg.style.backgroundColor = "#dc3545";
   }
 };
 
 const genCompChoice = () => {
     const options = ["rock", "paper", "scissors"];
-    const randIdx = Math.floor(Math.random() * 3); // Corrected: Math.random() with parentheses
+    const randIdx = Math.floor(Math.random() * 3);
     return options[randIdx];
-}
+};
 
-// playGame should be declared with 'const' or 'function' if it's not a global variable
+const removeSelectedClass = () => {
+    choices.forEach(choice => {
+        choice.classList.remove("selected");
+    });
+};
+
 const playGame = (userChoice) => {
+    removeSelectedClass();
+
+    const currentUserChoiceElement = document.getElementById(userChoice);
+    if (currentUserChoiceElement) {
+        currentUserChoiceElement.classList.add("selected");
+    }
+
     const compChoice = genCompChoice();
 
     if (userChoice === compChoice) {
-    //Draw Game
     drawGame();
   } else {
     let userWin = true;
     if (userChoice === "rock") {
-      //scissors, paper
       userWin = compChoice === "paper" ? false : true;
     } else if (userChoice === "paper") {
-      //rock, scissors
       userWin = compChoice === "scissors" ? false : true;
-    } else { // This else corresponds to userChoice === "scissors"
-      //rock, paper
+    } else {
       userWin = compChoice === "rock" ? false : true;
     }
     showWinner(userWin, userChoice, compChoice);
@@ -60,3 +79,5 @@ choices.forEach((choice) => {
         playGame(userChoice);
     });
 });
+
+resetBtn.addEventListener("click", resetGame);
