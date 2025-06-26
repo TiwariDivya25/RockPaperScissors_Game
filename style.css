@@ -2,34 +2,20 @@
     margin: 0;
     padding: 0;
     text-align: center;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
 }
 
 h1 {
-    background-color: black;
-    color:aliceblue;
+    background-color: #333;
+    color: #fff;
     height: 5rem;
     line-height: 5rem;
-}
-
-.choice {
-    height: 165px;
-    width: 165px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.choice:hover {
-    cursor: pointer;
-    background-color: rgb(44, 43, 43);
-}
-
-img {
-    height: 150px;
-    width: 150px;
-    object-fit: cover;
-    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .choices {
@@ -40,6 +26,42 @@ img {
     margin-top: 3rem;
 }
 
+.choice {
+    height: 165px;
+    width: 165px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+    border: 5px solid transparent;
+}
+
+.choice:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.choice.selected {
+    border-color: #007bff;
+    box-shadow: 0 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.computer-choice-img {
+    opacity: 0;
+}
+
 .score-board {
     display: flex;
     justify-content: center;
@@ -47,22 +69,54 @@ img {
     font-size: 2rem;
     margin-top: 3rem;
     gap: 4rem;
+    color: #333;
+}
+
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #user-score,
 #computer-score {
     font-size: 4rem;
+    font-weight: bold;
+    color: #007bff;
 }
 
 .msg-container {
     margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 #msg {
-    background-color: rgb(44, 43, 43);
-    color:white;
-    font-size: 2rem;
-    display: inline;
-    padding: 1rem;
+    background-color: #444;
+    color: white;
+    font-size: 2.2rem;
+    font-weight: bold;
+    display: inline-block;
+    padding: 1rem 2rem;
     border-radius: 1rem;
+    min-width: 300px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#reset-btn {
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+#reset-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
 }
